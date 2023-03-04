@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_gallery/config/constants.dart';
 import 'package:photo_gallery/controllers/photo_controller.dart';
+import 'package:photo_gallery/pages/favorite/favorite_screen.dart';
 
 class HomeFAButton extends StatelessWidget {
   const HomeFAButton({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class HomeFAButton extends StatelessWidget {
         ? FloatingActionButton.extended(
             backgroundColor: kPrimaryColor,
             elevation: 6,
-            onPressed: () => {debugPrint('batatinha')},
+            onPressed: () => {Get.to(() => const FavoriteScreen())},
             label: const Text('See Selected Gallery'),
             icon: const Icon(Icons.photo),
           )

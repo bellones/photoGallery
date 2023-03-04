@@ -8,6 +8,7 @@ import '../services/photo_service.dart';
 class PhotoController extends GetxController {
   var selectedItemCount = 0.obs;
   var photos = <PhotoModel>[];
+  var selectedPhotos = <PhotoModel>[].obs;
   var selectetItem = PhotoModel(selected: null).obs;
 
   Future<List<PhotoModel>> getData() async {
@@ -28,7 +29,9 @@ class PhotoController extends GetxController {
   Future<List<PhotoModel>> getSelectedItens() async {
     var itens =
         photos.where((element) => element.selected?.value == true).toList();
-    return itens;
+
+    selectedPhotos.value = itens;
+    return selectedPhotos;
   }
 
   void selectPhoto(PhotoModel? item, bool? select) {

@@ -10,8 +10,8 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
-      appBar: const DetailsAppBar(),
+    return const Scaffold(
+      appBar: DetailsAppBar(),
       body: Body(),
     );
   }
