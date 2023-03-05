@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:get/get.dart';
 import 'package:photo_gallery/controllers/photo_controller.dart';
-import 'package:photo_gallery/pages/home/components/photo_item.dart';
+import 'package:photo_gallery/pages/home/components/photo_grid.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -40,32 +40,28 @@ class _BodyState extends State<Body> {
       future: controller.getData(),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return Column(
-            children: const [
-              ListTileShimmer(),
-              ListTileShimmer(),
-              ListTileShimmer(),
-              ListTileShimmer(),
-              ListTileShimmer(),
-              ListTileShimmer(),
-              ListTileShimmer(),
-              ListTileShimmer(),
-            ],
+          return SingleChildScrollView(
+            child: Column(
+              children: const [
+                ListTileShimmer(),
+                ListTileShimmer(),
+                ListTileShimmer(),
+                ListTileShimmer(),
+                ListTileShimmer(),
+                ListTileShimmer(),
+                ListTileShimmer(),
+                ListTileShimmer(),
+              ],
+            ),
           );
         }
-        return ListView.builder(
-            controller: scrollController,
-            shrinkWrap: true,
-            itemCount: controller.paggedResult.length,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) {
-              var item = controller.paggedResult[index];
-              return PhotoItem(
-                item: item,
+        return Obx(() => controller.loading.value == true
+            ? const CircularProgressIndicator()
+            : PhotoGrid(
+                list: controller.paggedResult,
                 selectPhoto: controller.selectPhoto,
                 setSelectedItem: controller.setSelectedItem,
-              );
-            });
+                scrollController: scrollController));
       },
     );
   }

@@ -12,6 +12,7 @@ class PhotoController extends GetxController {
   var paggedResult = <PhotoModel>[].obs;
   var selectedPhotos = <PhotoModel>[].obs;
   var selectetItem = PhotoModel(selected: null).obs;
+  var loading = false.obs;
 
   var pageSize = 100;
   var page = 2;
@@ -37,6 +38,7 @@ class PhotoController extends GetxController {
 
   void loadData() {
     try {
+      loading.value = true;
       var lastId = maxBy(paggedResult, (e) => e.id)!.id;
       var skipData = pageSize * page;
       var response = photos
@@ -48,6 +50,7 @@ class PhotoController extends GetxController {
           page++;
         }
         paggedResult.addAll(response);
+        loading.value = false;
       }
     } catch (error) {
       rethrow;
